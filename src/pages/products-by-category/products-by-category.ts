@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
 
@@ -15,7 +15,11 @@ export class ProductsByCategoryPage {
 	page: number;
 	category: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl: ToastController
+  ) {
 
   	this.page = 1;
   	this.category = this.navParams.get('category');
@@ -28,10 +32,7 @@ export class ProductsByCategoryPage {
 
   	this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug)
 	  	.then((data) => {
-	  		this.products = JSON.parse(data.body).products;
-
-	  		console.log('this.products');
-	  		console.log(this.products);
+        this.products = JSON.parse(data.body).products;
 	  	}, (error) => {
 	  		console.log(error);
 	  	});
@@ -39,6 +40,30 @@ export class ProductsByCategoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsByCategoryPage');
+  }
+
+  loadMoreProducts(event) {
+    console.log('loadMoreProducts');
+    //this.page++;
+
+    this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug + '&page=' + this.page)
+      .then((data) => {
+        let moreProducts = JSON.parse(data.body).products;
+        this.products = this.products.concat(moreProducts);
+
+        event.complete(); 
+
+        if(moreProducts.length < 10) { 
+          event.enable(false); 
+
+          this.toastCtrl.create({
+            message: 'No more products!',
+            duration: 5000
+          }).present();
+        }
+      }, (error) => {
+        console.log(error);
+      });
   }
 
 }
