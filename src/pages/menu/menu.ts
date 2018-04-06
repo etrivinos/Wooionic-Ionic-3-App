@@ -27,10 +27,17 @@ export class MenuPage {
   	this.WooCommerce.getAsync("products/categories")
 	  	.then((data) => {
 	  		let temp: any[] = JSON.parse(data.body).product_categories;
-
+	  		
 	  		this.categories = temp.filter((item) => {
-	  			return !item.parent;
-	  		})
+					if(item.slug === 'accessories') { item.icon = 'images'; }
+					if(item.slug === 'hoodies') 		{ item.icon = 'musical-notes'; }
+					if(item.slug === 'tshirts') 		{ item.icon = 'shirt'; }
+
+	  			return !item.parent && item.name !== 'Uncategorized';
+	  		});
+
+	  		console.log('this.categories');
+	  		console.log(this.categories);
 	  	}, (error) => {
 	  		console.log(error);
 	  	});
