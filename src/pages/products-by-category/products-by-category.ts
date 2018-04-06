@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
 import { ProductDetailsPage }  from '../product-details/product-details';
 
-@IonicPage()
 @Component({
   selector: 'page-products-by-category',
   templateUrl: 'products-by-category.html',

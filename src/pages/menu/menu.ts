@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
@@ -11,7 +11,7 @@ import { ProductsByCategoryPage }	 from '../products-by-category/products-by-cat
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-	homePage : HomePage;
+	homePage : any;
 
 	WooCommerce: any; 
 	categories: any;
