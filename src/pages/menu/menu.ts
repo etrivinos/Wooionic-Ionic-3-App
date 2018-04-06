@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
@@ -15,6 +15,8 @@ export class MenuPage {
 
 	WooCommerce: any; 
 	categories: any;
+
+	@ViewChild('content') childNavController: NavController;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 		this.homePage = HomePage;
@@ -43,7 +45,7 @@ export class MenuPage {
 
   openCategoryPage(category) {
   	console.log(category);
-		this.navCtrl.setRoot(ProductsByCategoryPage, { category: category });
+		this.childNavController.setRoot(ProductsByCategoryPage, { category: category });
   }
 
   ionViewDidLoad() {
