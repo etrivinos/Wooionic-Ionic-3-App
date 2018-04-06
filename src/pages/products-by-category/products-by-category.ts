@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
+import { ProductDetailsPage }  from '../product-details/product-details';
 
 @IonicPage()
 @Component({
@@ -64,6 +65,10 @@ export class ProductsByCategoryPage {
       }, (error) => {
         console.log(error);
       });
+  }
+
+  openProductPage(product) {
+    this.navCtrl.push(ProductDetailsPage, { product: product });
   }
 
 }

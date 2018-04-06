@@ -31,4 +31,23 @@
   		</button>
     </ion-card-content>
   </ion-card>
+
+  <ion-card *ngIf="product.attributes.length">
+    <ion-card-content>
+    	<ion-card-title>
+    		Specifications
+  		</ion-card-title>
+
+  		<ion-grid>
+  			<ion-row *ngFor="let attr of product.attributes">
+  				<ion-col col-4>{{ attr.name }}</ion-col>
+  				<ion-col col-8>
+  					<span *ngFor="let option of attr.options">
+  						{{ attr.option }}
+						</span>
+  				</ion-col>
+  			</ion-row>
+  		</ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
