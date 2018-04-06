@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { MenuPage } from '../pages/menu/menu';
 import { HomePage } from '../pages/home/home';
 import { ProductsByCategoryPage }  from '../pages/products-by-category/products-by-category';
+import { ProductDetailsPage }  from '../pages/product-details/product-details';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,7 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     MenuPage,
     HomePage,
-    ProductsByCategoryPage
+    ProductsByCategoryPage,
+    ProductDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     MenuPage,
     HomePage,
-    ProductsByCategoryPage
+    ProductsByCategoryPage,
+    ProductDetailsPage
   ],
   providers: [
     StatusBar,

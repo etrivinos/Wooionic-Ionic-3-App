@@ -44,7 +44,6 @@ export class MenuPage {
   }
 
   openCategoryPage(category) {
-  	console.log(category);
 		this.childNavController.setRoot(ProductsByCategoryPage, { category: category });
   }
 
