@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import * as WC from 'woocommerce-api';
+import { ProductsByCategoryPage }	 from '../products-by-category/products-by-category';
 
 @Component({
   selector: 'page-menu',
@@ -12,7 +13,7 @@ import * as WC from 'woocommerce-api';
 export class MenuPage {
 	homePage : HomePage;
 
-	WooCommerce: any;
+	WooCommerce: any; 
 	categories: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -27,7 +28,7 @@ export class MenuPage {
   	this.WooCommerce.getAsync("products/categories")
 	  	.then((data) => {
 	  		let temp: any[] = JSON.parse(data.body).product_categories;
-	  		
+
 	  		this.categories = temp.filter((item) => {
 					if(item.slug === 'accessories') { item.icon = 'images'; }
 					if(item.slug === 'hoodies') 		{ item.icon = 'musical-notes'; }
@@ -35,12 +36,14 @@ export class MenuPage {
 
 	  			return !item.parent && item.name !== 'Uncategorized';
 	  		});
-
-	  		console.log('this.categories');
-	  		console.log(this.categories);
 	  	}, (error) => {
 	  		console.log(error);
 	  	});
+  }
+
+  openCategoryPage(category) {
+  	console.log(category);
+		this.navCtrl.setRoot(ProductsByCategoryPage, { category: category });
   }
 
   ionViewDidLoad() {
