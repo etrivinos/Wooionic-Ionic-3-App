@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -10,22 +10,48 @@ import { Storage } from '@ionic/storage';
 export class CartPage {
 	cart: array[] = [];
 	total: any;
+  cartIsEmpty: boolean = false;
 
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
-  	public storage: Storage
+    public storage: Storage,
+  	public viewCtrl: ViewController
 	) {
+  	this.getCart();
+  }
 
-  	this.storage.ready().then(() => {
-	  	this.storage.get('cart').then((data) => {
-	      this.cart = data || [];
+  getCart() {
+    this.storage.ready().then(() => {
+      this.storage.get('cart').then((data) => {
+        this.cart = data || [];
+        this.total = 0;
 
-	      this.total = this.cart.reduce((previous, current, index) => {
-      		return previous + current.amount;
-	      }, 0);
-	    });
-  	});
-  	
+        if(this.cart.length) {
+          this.total = this.cart.reduce((previous, current, index) => {
+            return previous + current.amount;
+          }, 0);
+        }
+        else {
+          this.cartIsEmpty = true;
+        }
+      });
+    });
+  }
+
+  removeFromCart(item, i) {
+    this.cart.splice(i, 1);
+
+    this.storage.set('cart', this.cart).then(() => {
+      this.getCart();
+    });
+  }
+
+  checkout() {
+
+  }
+
+  closeModal() {
+    this.viewCtrl.dismiss();
   }
 }
