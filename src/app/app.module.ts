@@ -7,6 +7,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { HomePage } from '../pages/home/home';
 import { ProductsByCategoryPage }  from '../pages/products-by-category/products-by-category';
 import { ProductDetailsPage }  from '../pages/product-details/product-details';
+import { CartPage }  from '../pages/cart/cart';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,7 +21,8 @@ import { IonicStorageModule } from '@ionic/storage';
     MenuPage,
     HomePage,
     ProductsByCategoryPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { IonicStorageModule } from '@ionic/storage';
     MenuPage,
     HomePage,
     ProductsByCategoryPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   providers: [
     StatusBar,

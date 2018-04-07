@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
 import { Storage } from '@ionic/storage';
+
+import { CartPage } from '../cart/cart';
 
 @Component({
   selector: 'page-product-details',
@@ -17,7 +19,8 @@ export class ProductDetailsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public storage:Storage
+    public storage:Storage,
+    public modalCtrl:ModalController
   ) 
   {
   	this.product = this.navParams.get('product');
@@ -39,8 +42,8 @@ export class ProductDetailsPage {
   }
 
   addToCart(product) {
-    this.storage.get('cart').then((cart) => {
-      let cart = cart || [];
+    this.storage.get('cart').then((data) => {
+      let cart = data || [];
       let itemExist = false;
 
       for(let i = 0; i < cart.length; i++) {
@@ -62,6 +65,11 @@ export class ProductDetailsPage {
 
       this.storage.set('cart', cart);
     });
+  }
+
+  openCart() {
+    let cartModal = this.modalCtrl.create(CartPage, { });
+    cartModal.present();
   }
 
   ionViewDidLoad() {
