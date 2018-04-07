@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'cart.html',
 })
 export class CartPage {
-	cart: array[] = [];
+	cart: any[] = [];
 	total: any;
   cartIsEmpty: boolean = false;
 
