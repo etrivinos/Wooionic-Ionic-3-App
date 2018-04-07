@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-product-details',
@@ -13,7 +14,12 @@ export class ProductDetailsPage {
   WooCommerce: any; 
   reviews: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public storage:Storage
+  ) 
+  {
   	this.product = this.navParams.get('product');
 
     this.WooCommerce = WC({
@@ -30,6 +36,32 @@ export class ProductDetailsPage {
       }, (error) => {
         console.log(error);
       });
+  }
+
+  addToCart(product) {
+    this.storage.get('cart').then((cart) => {
+      let cart = cart || [];
+      let itemExist = false;
+
+      for(let i = 0; i < cart.length; i++) {
+        if(product.id === cart[i].product.id) {
+          cart[i].qty++;
+          cart[i].amount += +cart[i].product.price;
+
+          itemExist = true;
+        }
+      }
+
+      if(!itemExist) {
+        cart.push({
+          product:  product,
+          qty:      1,
+          amount:   +product.price
+        });
+      }
+
+      this.storage.set('cart', cart);
+    });
   }
 
   ionViewDidLoad() {
